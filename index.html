@@ -2,155 +2,202 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Programación B</title>
+<meta name="theme-color" content="#EF6A9A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Programación B">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#13110f; --bg2:#1c1916; --line:#2e2925; --ink:#efe6d6; --mute:#9a8f80;
-  --acc:#ff6b3d; --ok:#8fd19e; --ko:#ff5a5f; --okbg:rgba(143,209,158,.10); --kobg:rgba(255,90,95,.10);
-  --mono:"IBM Plex Mono",ui-monospace,monospace; --disp:"Bricolage Grotesque",Georgia,serif;
+  --acc:#EF6A9A; --acc2:#C3306B; --ink-acc:#b0285f; --on-acc:#ffffff;
+  --ok:#28b04f; --ko:#ff3b30;
+  --bg:#eef0f5; --text:#0b0c10; --text2:rgba(11,12,16,.62); --text3:rgba(11,12,16,.42);
+  --glass:rgba(255,255,255,.52); --glass-strong:rgba(255,255,255,.72); --glass-b:rgba(255,255,255,.85);
+  --row:rgba(255,255,255,.55); --row-b:rgba(255,255,255,.9); --sep:rgba(11,12,16,.08);
+  --shadow:0 1px 1px rgba(0,0,0,.04),0 12px 32px -12px rgba(30,35,60,.22),0 40px 80px -40px rgba(30,35,60,.25);
+  --hi:rgba(255,255,255,.95); --blob-o:.55;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Manrope,"Helvetica Neue",sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:light dark;
 }
+@media (prefers-color-scheme:dark){:root{
+  --ok:#30d158; --ko:#ff453a; --ink-acc:var(--acc);
+  --bg:#05060a; --text:#f5f6fa; --text2:rgba(245,246,250,.64); --text3:rgba(245,246,250,.4);
+  --glass:rgba(255,255,255,.07); --glass-strong:rgba(30,32,40,.6); --glass-b:rgba(255,255,255,.14);
+  --row:rgba(255,255,255,.05); --row-b:rgba(255,255,255,.1); --sep:rgba(255,255,255,.08);
+  --shadow:0 1px 1px rgba(0,0,0,.3),0 20px 50px -20px rgba(0,0,0,.7);
+  --hi:rgba(255,255,255,.22); --blob-o:0.42;
+}}
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{
-  min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--disp);font-size:17px;line-height:1.5;
-  background-image:
-    linear-gradient(var(--line) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line) 1px,transparent 1px),
-    radial-gradient(1200px 600px at 85% -10%,rgba(255,107,61,.16),transparent 60%);
-  background-size:48px 48px,48px 48px,100% 100%;
-  background-attachment:fixed;
-}
-body::after{ /* grain */
-  content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.wrap{max-width:860px;margin:0 auto;padding:40px 16px 80px}
-header{display:grid;grid-template-columns:1fr auto;gap:12px 24px;align-items:end;margin-bottom:28px}
-.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
-h1{font-size:clamp(44px,9vw,92px);font-weight:800;line-height:.9;letter-spacing:-.04em;grid-column:1}
-h1 em{font-style:normal;color:var(--acc)}
-.tabs{display:flex;gap:4px;font-family:var(--mono);font-size:13px;background:var(--bg2);border:1px solid var(--line);padding:4px;border-radius:999px}
-.tabs button{all:unset;cursor:pointer;padding:7px 14px;border-radius:999px;color:var(--mute);transition:.2s}
-.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
-.tabs button:focus-visible,.opt:focus-visible,.btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--text);font-family:var(--font);font-size:17px;line-height:1.45;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;overflow-x:hidden}
 
-.meta{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:13px;color:var(--mute);margin-bottom:10px;gap:12px;flex-wrap:wrap}
-.meta b{color:var(--ink);font-weight:600}
-.score{display:flex;gap:14px}
-.score .g{color:var(--ok)} .score .r{color:var(--ko)}
-.track{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:2px;margin-bottom:26px}
-.track i{height:6px;border-radius:2px;background:var(--line);transition:background .3s}
-.track i.cur{background:var(--ink)} .track i.ok{background:var(--ok)} .track i.ko{background:var(--ko)}
+/* living backdrop: soft colour fields the glass refracts */
+.bg{position:fixed;inset:-20vmax;z-index:-1;pointer-events:none;filter:blur(70px) saturate(140%)}
+.bg i{position:absolute;border-radius:50%;opacity:var(--blob-o);animation:drift 28s ease-in-out infinite alternate}
+.bg i:nth-child(1){width:60vmax;height:60vmax;left:5%;top:0;background:var(--acc)}
+.bg i:nth-child(2){width:50vmax;height:50vmax;right:0;top:25%;background:var(--acc2);animation-duration:34s;animation-delay:-8s}
+.bg i:nth-child(3){width:45vmax;height:45vmax;left:30%;bottom:0;background:#8ea2ff;opacity:calc(var(--blob-o)*.6);animation-duration:40s;animation-delay:-16s}
+@keyframes drift{to{transform:translate(8vmax,-6vmax) scale(1.12)}}
 
-.card{background:linear-gradient(180deg,rgba(28,25,22,.96),rgba(22,19,17,.96));border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,36px);box-shadow:0 30px 80px -30px rgba(0,0,0,.7);position:relative;overflow:hidden}
-.card::before{content:attr(data-n);position:absolute;right:-6px;top:-34px;font-size:160px;font-weight:800;letter-spacing:-.06em;color:rgba(239,230,214,.04);pointer-events:none}
-.q{font-size:clamp(20px,3.2vw,26px);font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-bottom:22px;white-space:pre-wrap;position:relative}
+.glass{position:relative;background:var(--glass);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border:1px solid var(--glass-b);box-shadow:inset 0 1px 0 var(--hi),var(--shadow);isolation:isolate}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  background:linear-gradient(160deg,rgba(255,255,255,.38),rgba(255,255,255,0) 38%),radial-gradient(120% 60% at 50% -10%,rgba(255,255,255,.25),transparent 60%);mix-blend-mode:soft-light}
+
+/* nav bar */
+.nav{position:sticky;top:0;z-index:10;padding:calc(env(safe-area-inset-top) + 10px) 16px 10px}
+.nav-in{max-width:780px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 10px;border-radius:999px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;min-width:0}
+.brand img{width:30px;height:30px;flex:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.18))}
+.brand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg{position:relative;display:grid;grid-template-columns:1fr 1fr;padding:3px;border-radius:999px;background:rgba(120,120,128,.16);flex:none}
+.seg::before{content:"";position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);border-radius:999px;background:var(--glass-strong);box-shadow:0 3px 10px rgba(0,0,0,.12),inset 0 1px 0 var(--hi);transition:transform .45s cubic-bezier(.3,1.4,.5,1)}
+.seg[data-i="1"]::before{transform:translateX(100%)}
+.seg button{all:unset;position:relative;z-index:1;cursor:pointer;padding:7px 16px;font-size:14px;font-weight:600;text-align:center;color:var(--text2);transition:color .2s}
+.seg button[aria-selected=true]{color:var(--text)}
+
+.wrap{max-width:780px;margin:0 auto;padding:8px 16px calc(60px + env(safe-area-inset-bottom))}
+header.hero{padding:22px 4px 22px}
+.kicker{font-size:13px;font-weight:600;color:var(--ink-acc);text-transform:uppercase;letter-spacing:.06em}
+h1{font-size:clamp(38px,8vw,60px);font-weight:800;letter-spacing:-.045em;line-height:1;margin-top:6px}
+
+.status{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+.chip.g{color:var(--ok)} .chip.r{color:var(--ko)}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.status .sp{flex:1}
+.bar{height:8px;border-radius:999px;background:rgba(120,120,128,.18);overflow:hidden;margin-bottom:18px}
+.bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 12px var(--acc);transition:width .6s cubic-bezier(.2,.9,.3,1)}
+
+.card{border-radius:30px;padding:clamp(20px,4.5vw,32px);animation:in .5s cubic-bezier(.2,.9,.3,1) both}
+@keyframes in{from{opacity:0;transform:translateY(14px) scale(.985)}}
+.qn{font-size:13px;font-weight:700;color:var(--ink-acc);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.q{font-size:clamp(20px,3.4vw,25px);font-weight:700;line-height:1.28;letter-spacing:-.022em;margin-bottom:20px;white-space:pre-wrap;overflow-wrap:anywhere}
+.fig{display:block;margin:0 0 20px;background:#fff;border-radius:20px;padding:12px;text-align:center;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.fig img{max-width:100%;max-height:420px;height:auto;display:inline-block;vertical-align:middle;border-radius:8px}
 .opts{display:grid;gap:10px}
-.fig{display:block;margin:0 0 22px;background:#fff;border-radius:12px;padding:10px;text-align:center;position:relative}
-.fig img{max-width:100%;max-height:420px;height:auto;display:inline-block;vertical-align:middle}
-.rev .fig{margin:4px 0 12px}
-.rev .fig img{max-height:260px}
-.opt{all:unset;box-sizing:border-box;display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start;padding:14px 16px;border:1px solid var(--line);border-radius:12px;cursor:pointer;transition:border-color .15s,background .15s,transform .15s;background:rgba(255,255,255,.015)}
-.opt:hover:not([disabled]){border-color:var(--mute);transform:translateX(3px)}
-.opt .k{font-family:var(--mono);font-size:13px;font-weight:600;width:34px;height:28px;display:grid;place-items:center;border:1px solid var(--line);border-radius:7px;color:var(--mute)}
+.opt{all:unset;box-sizing:border-box;display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:20px;cursor:pointer;background:var(--row);border:1px solid var(--row-b);box-shadow:inset 0 1px 0 var(--hi);transition:transform .25s cubic-bezier(.3,1.4,.5,1),background .2s,border-color .2s,opacity .3s;overflow-wrap:anywhere}
+.opt:hover:not([disabled]){transform:translateY(-1px) scale(1.005);background:var(--glass-strong)}
+.opt:active:not([disabled]){transform:scale(.98)}
+.opt .k{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--text2);background:rgba(120,120,128,.14);transition:.25s}
 .opt[disabled]{cursor:default}
-.opt.ok{border-color:var(--ok);background:var(--okbg)} .opt.ok .k{background:var(--ok);color:var(--bg);border-color:var(--ok)}
-.opt.ko{border-color:var(--ko);background:var(--kobg)} .opt.ko .k{background:var(--ko);color:var(--bg);border-color:var(--ko)}
-.opt.dim{opacity:.45}
-.opt.ok,.opt.ko{animation:pop .35s cubic-bezier(.2,.9,.3,1.4)}
-@keyframes pop{from{transform:scale(.98)}to{transform:scale(1)}}
-.exp{margin-top:20px;padding:16px 18px;border-left:3px solid var(--acc);background:rgba(255,107,61,.06);border-radius:0 10px 10px 0;font-size:15.5px;color:#ddd2c1;animation:rise .35s ease both}
-.exp::before{content:"-- explicación";display:block;font-family:var(--mono);font-size:12px;color:var(--acc);margin-bottom:6px}
-@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
-.nav{display:flex;justify-content:space-between;align-items:center;margin-top:22px;gap:12px}
-.btn{all:unset;cursor:pointer;font-family:var(--mono);font-size:14px;font-weight:500;padding:12px 20px;border-radius:999px;border:1px solid var(--line);color:var(--ink);transition:.2s;text-align:center}
-.btn:hover{border-color:var(--ink)}
-.btn.pri{background:var(--acc);border-color:var(--acc);color:#1a0d07;font-weight:600}
-.btn.pri:hover{filter:brightness(1.08)}
+.opt.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:color-mix(in srgb,var(--ok) 55%,transparent)}
+.opt.ok .k{background:var(--ok);color:#fff}
+.opt.ko{background:color-mix(in srgb,var(--ko) 14%,transparent);border-color:color-mix(in srgb,var(--ko) 55%,transparent);animation:shake .4s}
+.opt.ko .k{background:var(--ko);color:#fff}
+.opt.dim{opacity:.42}
+@keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(4px)}75%{transform:translateX(-2px)}}
+.exp{margin-top:18px;padding:14px 16px;border-radius:18px;background:color-mix(in srgb,var(--acc) 14%,transparent);border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);font-size:15.5px;color:var(--text);animation:in .4s both}
+.exp b{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-acc);margin-bottom:4px}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
+.hint{font-size:13px;color:var(--text3)}
+.btn{all:unset;cursor:pointer;font-size:16px;font-weight:700;padding:13px 22px;border-radius:999px;text-align:center;transition:transform .25s cubic-bezier(.3,1.4,.5,1),filter .2s;color:var(--text)}
+.btn:active{transform:scale(.96)}
+.btn.pri{color:var(--on-acc);background:linear-gradient(180deg,var(--acc),var(--acc2));box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 6px rgba(0,0,0,.12),0 10px 24px -8px var(--acc2)}
+.btn.pri:hover{filter:brightness(1.06) saturate(1.1)}
+.btn.sec{background:var(--row);border:1px solid var(--row-b);box-shadow:inset 0 1px 0 var(--hi)}
 .btn[hidden]{display:none}
-.hint{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.btn:focus-visible,.opt:focus-visible,.seg button:focus-visible,.search input:focus-visible{outline:3px solid color-mix(in srgb,var(--acc) 70%,transparent);outline-offset:2px}
 
-.end{text-align:center;padding:12px 0}
-.big{font-size:clamp(90px,22vw,180px);font-weight:800;letter-spacing:-.06em;line-height:.9}
-.big small{font-size:.3em;color:var(--mute);letter-spacing:0}
-.verdict{font-family:var(--mono);color:var(--mute);margin:10px 0 26px}
+.end{text-align:center}
+.ring{position:relative;width:200px;height:200px;margin:4px auto 10px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:14;stroke-linecap:round}
+.ring .t{stroke:rgba(120,120,128,.16)}
+.ring .v{transition:stroke-dashoffset 1.2s cubic-bezier(.2,.9,.3,1) .15s;filter:drop-shadow(0 0 8px currentColor)}
+.ring .n{position:absolute;inset:0;display:grid;place-content:center;font-size:58px;font-weight:800;letter-spacing:-.05em;line-height:1}
+.ring .n small{font-size:15px;font-weight:600;color:var(--text3);letter-spacing:0;margin-top:4px}
+.verdict{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.sub{color:var(--text2);font-size:15px;margin:4px 0 22px}
 .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.fails{text-align:left;margin-top:30px;display:grid;gap:10px}
-.fails li{list-style:none;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px}
-.fails li span{display:block;font-family:var(--mono);font-size:13px;color:var(--ok);margin-top:4px}
+.list{margin-top:26px;text-align:left;border-radius:22px;overflow:hidden}
+.list li{list-style:none;padding:14px 18px;font-size:15px;font-weight:600;border-top:1px solid var(--sep)}
+.list li:first-child{border-top:0}
+.list li span{display:block;font-weight:500;color:var(--ok);margin-top:3px}
+.list h4{padding:12px 18px 0;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3)}
 
-.rev{display:grid;gap:14px}
-.rev article{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
-.rev h3{font-size:17px;font-weight:600;white-space:pre-wrap;margin-bottom:10px}
-.rev h3 b{font-family:var(--mono);color:var(--acc);margin-right:8px}
-.rev ul{list-style:none;display:grid;gap:4px;font-size:15px}
-.rev li{padding-left:22px;position:relative;color:var(--mute)}
-.rev li::before{content:"·";position:absolute;left:6px}
-.rev li.c{color:var(--ok)} .rev li.c::before{content:"✓";left:2px}
-.rev p{margin-top:10px;font-size:14px;color:#c9bfaf;border-top:1px dashed var(--line);padding-top:10px}
-.filter{width:100%;margin-bottom:16px;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);font:15px var(--mono)}
-.filter:focus{outline:2px solid var(--acc)}
-footer{margin-top:40px;font-family:var(--mono);font-size:12px;color:var(--mute);text-align:center}
+.search{display:flex;align-items:center;gap:8px;border-radius:999px;padding:0 16px;margin-bottom:14px}
+.search svg{flex:none;width:18px;height:18px;color:var(--text3)}
+.search input{all:unset;flex:1;padding:13px 0;font-size:16px;color:var(--text)}
+.search input::placeholder{color:var(--text3)}
+.rev{display:grid;gap:12px}
+.rev article{border-radius:24px;padding:18px 20px}
+.rev h3{font-size:17px;font-weight:700;letter-spacing:-.015em;white-space:pre-wrap;margin-bottom:12px;overflow-wrap:anywhere}
+.rev h3 b{color:var(--ink-acc);margin-right:8px;font-variant-numeric:tabular-nums}
+.rev .fig img{max-height:260px}
+.rev ul{list-style:none;display:grid;gap:6px}
+.rev li{font-size:15px;color:var(--text2);padding:8px 12px 8px 36px;border-radius:12px;position:relative;overflow-wrap:anywhere}
+.rev li::before{content:"";position:absolute;left:14px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--text3)}
+.rev li.c{color:var(--text);font-weight:600;background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.rev li.c::before{width:14px;height:14px;left:10px;margin-top:-7px;background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3.5 7.2l2.3 2.3 4.7-5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.rev p{margin-top:12px;font-size:14.5px;color:var(--text2);border-top:1px solid var(--sep);padding-top:12px}
+.empty{text-align:center;color:var(--text3);padding:30px}
+footer{margin-top:34px;font-size:12.5px;color:var(--text3);text-align:center;line-height:1.7}
 footer a{color:inherit}
-@media (max-width:560px){header{grid-template-columns:1fr}.tabs{justify-self:start}.hint{display:none}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:520px){.brand span{display:none}.hint{display:none}.foot{justify-content:flex-end}.btn.pri{flex:1}}
+@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass{background:var(--glass-strong)}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div>
-      <div class="kicker">Ilerna · Ejemplo 2026 + POO 2026 + Ex1 · 58 preguntas</div>
-      <h1>Programación<br><em>B</em></h1>
-    </div>
-    <nav class="tabs" role="tablist">
+<div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
+<nav class="nav">
+  <div class="nav-in glass">
+    <div class="brand"><img src="icon.svg" alt=""><span>Programación B</span></div>
+    <div class="seg" role="tablist" data-i="0">
       <button role="tab" aria-selected="true" data-mode="test">Test</button>
       <button role="tab" aria-selected="false" data-mode="review">Repaso</button>
-    </nav>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">Ilerna · Ejemplo 2026 + POO 2026 + Ex1 · 58 preguntas</div>
+    <h1>Programación B</h1>
   </header>
   <main id="app"></main>
-  <footer>Preguntas: <a href="https://www.daypo.com/examen-ejemplo-ilerna-programacion-b-2026.html">Daypo · Ejemplo Programación B 2026 (Jervi)</a> + <a href="https://www.daypo.com/examen-poo-2026-ilerna.html">Daypo · POO 2026 (Kevis)</a> + <a href="https://www.daypo.com/programacion-b-ex1.html">Daypo · Programación B Ex1 (M13)</a></footer>
+  <footer>Preguntas de Daypo: <a href="https://www.daypo.com/examen-ejemplo-ilerna-programacion-b-2026.html">Ejemplo Programación B 2026 (Jervi)</a> · <a href="https://www.daypo.com/examen-poo-2026-ilerna.html">POO 2026 (Kevis)</a> · <a href="https://www.daypo.com/programacion-b-ex1.html">Programación B Ex1 (M13)</a></footer>
 </div>
 <script>
 const DATA = [{"q": "Cuáles son los tipos de datos objeto en las Bases de Datos Orientada a Objetos?", "o": ["Los tipos primitivos y objetos creados por el desarrollador.", "Number, Boolean, Character y Datetime.", "Los tipos primitivos de java.", "Las clases envolventes."], "a": [0], "h": ""}, {"q": "Señala la opción FALSA:", "o": ["Un sistema SGBDOO, puede tratar directamente con objetos, no hay que hacer la traducción de registros o tablas.", "En un sistema SGBDOO, no se puede tratar directamente con objetos, hay que hacer la traducción de registros o tablas.", "Las características optativas de un SGBDOO son herencia múltiple, chequeo e inferencia de tipos, distribución, transacciones de diseño y versiones.", "OQL es el lenguaje de consulta de objetos para consultar los valores de esos objetos creados, la estructura de la base de datos y los datos introducidos en ella."], "a": [1], "h": ""}, {"q": "¿Qué es una base de datos orientada a objetos?", "o": ["Una base de datos que solo permite el almacenamiento de datos numéricos y cadenas de texto.", "Una base de datos que utiliza tablas relacionales para almacenar y gestionar la información.", "Una base de datos que utiliza archivos de texto plano para almacenar y gestionar la información.", "Una base de datos que utiliza objetos para almacenar y gestionar la información."], "a": [3], "h": ""}, {"q": "¿Cuál es la principal característica de una base de datos objeto-relacional?", "o": ["Organiza los datos en tablas relacionadas entre sí mediante claves primarias y foráneas.", "Pueden definir tipos de datos más complejos, representar de forma directa atributos compuestos y almacenar objetos de gran tamaño.", "Utiliza archivos de texto plano para almacenar la información.", "Solo permite almacenar datos numéricos y cadenas de texto de longitud fija."], "a": [1], "h": ""}, {"q": "¿Cuál de las siguientes opciones es el primer paso para realizar una consulta a la base de datos?", "o": ["Cerrar la conexión.", "Obtener la información resultante de la consulta.", "Crear la sentencia de conexión.", "Tratar la consulta."], "a": [2], "h": ""}, {"q": "El método createStatement() tiene como parámetros:", "o": ["El nombre de usuario.", "Ninguna de las otras opciones es correcta.", "Integer con el número de filas devueltas.", "La contraseña."], "a": [1], "h": ""}, {"q": "Entre las excepciones de bases de datos tenemos:", "o": ["SQLOutOfBoundsException", "ExceptionSQL", "IndexOutOfBoundsException", "SQLException"], "a": [3], "h": ""}, {"q": "¿Qué código de los siguientes tiene que ver con la herencia de clases?", "o": ["public class Componente implements Producto", "public class Componente belong to Producto", "public class Componente inherit Producto", "public class Componente extends Producto"], "a": [3], "h": ""}, {"q": "¿Qué es la herencia múltiple en programación orientada a objetos?", "o": ["La capacidad de tener múltiples objetos de una misma clase.", "La relación entre dos clases donde una clase contiene a la otra, pero la segunda clase puede existir de forma independiente.", "La capacidad de una clase para heredar atributos y comportamientos de varias clases a la vez.", "La capacidad de una clase para heredar atributos y comportamientos de una única clase."], "a": [2], "h": ""}, {"q": "¿Qué instrucción encontramos encima de la implementación de un método que está sobrescribiendo a otro?", "o": ["@Super", "@New", "@Override", "@Change"], "a": [2], "h": ""}, {"q": "¿Cuál es la principal diferencia entre una base de datos orientada a objetos y una base de datos relacional?", "o": ["En una base de datos orientada a objetos , los datos se almacenan en tablas relacionales, mientras que en una base de datos relacional se almacenan en objetos.", "En una base de datos orientada a objetos, los datos se almacenan en forma de objetos, mientras que una base de datos relacional se almacenan en tablas.", "Las bases de datos orientadas a objetos solo se utilizan en entornos de programación orientada a objetos, mientras que las bases de datos relacionales son independientes del paradigma de programación. ", "Las bases de datos orientadas a objetos no permiten realizar consultas, mientras que las bases de datos relacionales si lo permiten."], "a": [1], "h": ""}, {"q": "Señala la definición correcta en referencia a una base de datos objeto-relacionales:", "o": ["Nos permite aplicar las propiedades de la POO de abstracción y encapsulación; pero no permite la herencia.", "Es una base de datos híbrida, entre el modelo orientado a objetos, y modelo Centrado en la BBDD; incluyendo las relaciones.", "En este tipo de bases de datos, solo puede haber herencia a nivel de tipos.", "Nos permite aplicar las propiedades de la POO de herencia, abstracción y encapsulación."], "a": [1], "h": ""}, {"q": "Selecciona la opción falsa sobre las bases de datos orientadas a objetos:", "o": ["En una base de datos orientada a objetos, los objetos tienen un único identificador.", "Los usuarios pueden definir junto con la estructura de la base de datos, las operaciones sobre los datos.", "En las bases de datos orientadas a objetos, se busca plasmar la realidad en la base de datos según la percibimos.", "Necesitamos realizar conversiones para poder almacenar los objetos en las bases de datos orientadas a objetos."], "a": [3], "h": ""}, {"q": "¿Cuál de las siguientes es característica de las bases de datos orientadas a objetos?", "o": ["Se diseñan de la misma forma que los programas orientados a objetos.", "Los objetos pueden heredar los unos de los otros.", "Cada objeto que definamos debe tener un identificador único.", "Todas las opciones mostradas son correctas."], "a": [3], "h": ""}, {"q": "¿Qué obtenemos en el objeto resultSet?", "o": ["La sentencia de conexión.", "Los datos de rendimiento de la base de datos.", "Una String con el texto de la última consulta que se ha ejecutado en la base de datos.", "Los datos recuperados de la base de datos tras realizar la consulta."], "a": [3], "h": ""}, {"q": "Queremos establecer una conexión con una base de datos mediante valores literales. Rellena el hueco número 3 correspondiente al conector JDBC de Java:", "o": ["\"jdbc:mysql://localhost/prueba\"", "jdbc//localhost", "\"Usuario\"", "Password"], "a": [2], "h": "", "img": "img/1108070_13.jpg"}, {"q": "En el siguiente código que realiza una consulta a una base de datos ¿Qué código falta en el hueco 1?", "o": ["createStatement()", "Connection", "\"jdbc:mysql://localhost/prueba\"", "Statement"], "a": [1], "h": "", "img": "img/1180146_1.jpg"}, {"q": "En el siguiente código que realiza una consulta a una base de datos ¿Qué código falta en el hueco 7?", "o": ["Connection", "sentencia", "consulta", "ResultSet"], "a": [2], "h": "", "img": "img/1180146_2.jpg"}, {"q": "Queremos establecer una conexión con una base de datos mediante valores literales. Rellena el hueco número 2 correspondiente al conector JDBC de Java:", "o": ["\"prueba\"", "jdbc//localhost", "\"localhost/prueba\"", "\"jdbc:mysql://localhost/prueba\""], "a": [3], "h": "", "img": "img/1108070_11.jpg"}, {"q": "¿Qué mostrará por consola el siguiente código de la clase Coche?", "o": ["10", "20", "0", "30"], "a": [0], "h": "", "img": "img/1108070_2.jpg"}, {"q": "¿Qué se mostrará en consola al ejecutar este código?", "o": ["5", "Error de compilación", "2+3", "23"], "a": [1], "h": "", "img": "img/1108070_3.jpg"}, {"q": "¿Qué se mostrará en consola al ejecutar este código?", "o": ["5", "23", "a+b", "2+3"], "a": [1], "h": "", "img": "img/1108070_1.jpg"}, {"q": "¿Qué modificador tendrá un método que puede ser accesible desde una clase de otro paquete?", "o": ["package", "private", "Sin modificador", "public"], "a": [3], "h": ""}, {"q": "¿Cuál de las siguientes afirmaciones es correcta respecto a los constructores en POO?", "o": ["Un constructor es un tipo especial de variable utilizada para almacenar datos en una clase.", "Un constructor es un método donde se inicializan los atributos de una clase.", "Un constructor es un método utilizado para actualizar el estado interno de un objeto.", "Un constructor es un método utilizado para destruir objetos y liberar memoria."], "a": [1], "h": ""}, {"q": "Queremos añadir la letra C en la colección ArrayList letras, que tiene los elementos A, B, D, E. Para que salga en la posición que le corresponde (entre la B y la D), ¿cómo debemos realizarlo?", "o": ["letras.add('C', 3);", "letras.add(2, 'C');", "letras.add(3, 'C');", "letras.add('C');"], "a": [1], "h": ""}, {"q": "¿Qué estructura de datos garantiza que el elemento más recientemente agregado sea el primero en ser eliminado?", "o": ["Lista (List)", "Pila (Stack)", "Cola (Queue)", "Conjunto (Set)"], "a": [1], "h": ""}, {"q": "¿Qué nombre se imprimirá en la consola al ejecutar el código?", "o": ["Elena", "Ilerna", "Carlos", "Ana"], "a": [0], "h": "", "img": "img/1180146_7.jpg"}, {"q": "¿Qué se mostrará en pantalla al ejecutar este código?", "o": ["C", "B", "D", "Mostrará un error"], "a": [1], "h": "", "img": "img/1108070_7.jpg"}, {"q": "¿Cómo se recorren las claves de un HashMap en Java? Rellena el hueco:", "o": ["keySet()", "getValues()", "values()", "keys()"], "a": [0], "h": "", "img": "img/1108070_6.jpg"}, {"q": "¿Cómo se recorren los valores de un HashMap en Java? Rellena el hueco en el código:", "o": ["values()", "valueSet()", "getKeys()", "getValues()"], "a": [0], "h": ""}, {"q": "En una colección en Java, cuando hablamos de la interfaz set (conjunto)...", "o": ["Es un grupo de valores del mismo tipo y que pueden estar repetidos.", "Es una interfaz que no se puede implementar en Java.", "Es una estructura de datos que no se puede usar en Java.", "Es un conjunto de valores únicos."], "a": [3], "h": ""}, {"q": "¿Cómo conocemos el número de caracteres de una cadena?", "o": ["charsAt()", "size()", "length()", "getSize()"], "a": [2], "h": ""}, {"q": "¿Qué salida tendrá este código al ejecutar el método main?", "o": ["tobby", "hacerSonido", "Guau!", "Sonido genérico"], "a": [3], "h": "", "img": "img/1108070_0.jpg"}, {"q": "¿Qué se mostrará en consola tras la ejecución de este código?", "o": ["16", "4", "lado*lado", "Nada por un error de compilación"], "a": [3], "h": "", "img": "img/1108070_10.jpg"}, {"q": "¿Qué efecto tiene la palabra reservada final si la encontramos delante de un método?", "o": ["Es un método que no puede ser sobrescrito.", "Es un método estático.", "Es un método abstracto.", "Es un método que pertenece a otra clase."], "a": [0], "h": ""}, {"q": "¿Qué significa tener la palabra reservada static delante de un método?", "o": ["Es un método que no puede ser sobrescrito.", "Podemos utilizar el método sin instanciar la clase.", "Es un método que no se implementa en la propia clase que lo declara, sino que se implementa en las clases que la heredan de ésta.", "Podemos utilizar el método exclusivamente desde la clase que lo contiene."], "a": [1], "h": ""}, {"q": "¿Qué es el modificador de acceso \"protected\" en una clase?", "o": ["Indica que los atributos y métodos son accesibles solo desde las clases del mismo paquete", "Indica que los atributos y métodos son accesibles desde las clases derivadas y desde las clases paquete", "Indica que los atributos y métodos solo son accesibles desde la misma clase", "Indica que los atributos y métodos son accesibles desde cualquier parte del programa"], "a": [1], "h": ""}, {"q": "En el código que ves, ¿Cuál es el modificador de acceso del atributo \"nombre\" en la clase Persona?", "o": ["String", "private", "default", "this"], "a": [1], "h": "", "img": "img/1180146_12.jpg"}, {"q": "¿Qué es una clase abstracta en programación orientada a objetos?", "o": ["Una clase que se puede heredar de manera múltiple.", "Una clase que no puede ser instanciada y sirve como base para otras clases.", "Una clase que no puede tener atributos ni métodos implementados.", "Una clase que contiene métodos y atributos estáticos."], "a": [1], "h": ""}, {"q": "¿Qué muestra por consola este código de la clase CuentaBancaria?", "o": ["1500", "800.0", "1300.0", "800"], "a": [2], "h": "", "img": "img/1108070_4.jpg"}, {"q": "Según la definición: int[] array = new int[100];, ¿cuál es la última posición del array?", "o": ["100", "99", "Ninguna de las otras opciones es correcta.", "101"], "a": [1], "h": ""}, {"q": "¿Qué parámetros puede recibir la función de la siguiente imagen?", "o": ["No se puede declarar esta función.", "Cualquier Lista donde sus valores sean superclases de Number.", "Cualquier Lista de cualquier tipo de dato (numérico o textual).", "Cualquier Lista donde sus valores sean subclases de Number."], "a": [3], "h": "", "img": "img/1108070_5.jpg"}, {"q": "Qué estructura de datos garantiza que el elemento más antiguo agregado sea el primero en ser eliminado?", "o": ["Pila (Stack)", "Lista (List)", "Conjunto (Set)", "Cola (Queue)"], "a": [3], "h": ""}, {"q": "El método next(), propio de Iterator:", "o": ["Ninguna de las otras opciones es correcta.", "Elimina de la colección subyacente el último elemento devuelto por este iterador.", "Devuelve el siguiente elemento en la iteración.", "Devuelve verdadero si la iteración tiene más elementos, en caso contrario devuelve falso."], "a": [2], "h": ""}, {"q": "Queremos añadir la letra C en la colección ArrayList letras que contiene [A, B, D, E]. ¿Cómo debemos realizarlo para que se mantenga el orden alfabético?", "o": ["letras.add('C', 3);", "letras.add(2, 'C');", "letras.add(3, 'C');", "letras.add('C');"], "a": [1], "h": ""}, {"q": "¿Qué salida tendrá este código al ejecutar el método main?", "o": ["tobby", "hacerSonido", "Sonido genérico", "Guau!"], "a": [3], "h": "", "img": "img/1108070_8.jpg"}, {"q": "¿Cuál es la característica principal de la clase Figura?", "o": ["No puede tener ningún constructor.", "No se puede instanciar directamente.", "No puede tener ningún atributo.", "No puede tener ningún método desarrollado."], "a": [1], "h": "", "img": "img/1108070_9.jpg"}, {"q": "Para sobrescribir un método de la clase padre en la clase hija, ¿qué condición o condiciones debe tener?", "o": ["Coincidir el tipo de todos los parámetros.", "Coincidir el nombre.", "Todas las opciones mostradas son correctas.", "Coincidir el número de parámetros."], "a": [2], "h": ""}, {"q": "En una base de datos objeto-relacional, ¿Qué es la herencia de tablas?", "o": ["La relación entre objetos que comparten características similares.", "La relación entre tablas en la base de datos que comparten atributos comunes.", "La relación entre tablas que comparten una clave primaria.", "La capacidad de una tabla de heredar propiedades y comportamientos de otra tabla."], "a": [3], "h": ""}, {"q": "Señala la opción FALSA:", "o": ["Un sistema SGBDOO, puede tratar directamente con objetos, no hay que hacer la traducción de objeto a registro de base de datos.", "En un sistema SGBDOO, no se puede tratar directamente con objetos, hay que hacer la traducción de objeto a registro de base de datos.", "Las características optativas de un SGBDOO, son herencia múltiple, chequeo e inferencia de tipos, distribución y transacciones de larga duración.", "OQL es el lenguaje de consulta de objetos para consultar los valores de esos objetos creados anteriormente."], "a": [1], "h": ""}, {"q": "En el siguiente código que realiza una consulta a una base de datos, ¿qué código falta en el hueco 6?:", "o": ["Statement", "ResultSet", "Connection", "Query"], "a": [1], "h": "", "img": "img/1108070_12.jpg"}, {"q": "En el siguiente código que realiza una consulta a una base de datos, ¿qué código falta en el hueco 8?:", "o": ["getConnection()", "next()", "get()", "find()"], "a": [1], "h": "", "img": "img/1108070_14.jpg"}, {"q": "¿Cuál es la principal diferencia entre una base de datos orientada a objetos y una base de datos relacional?", "o": ["En una BDOO los datos se almacenan en tablas relacionales, mientras que en una relacional en objetos.", "Las BDOO solo se utilizan en entornos de POO, mientras que las relacionales son independientes del paradigma de programación.", "En una BDOO los datos se almacenan en forma de objetos, mientras que en una BDR se almacenan en tablas.", "Las BDOO no permiten realizar consultas, mientras que las relacionales sí lo permiten."], "a": [2], "h": ""}, {"q": "Rellena el hueco 1:", "o": ["Connection", "ResultSet", "Statement", "Query"], "a": [0], "h": "Como hay varios huecos, he añadido esto por si varía en el examen.", "img": "img/1108070_15.jpg"}, {"q": "Rellena el hueco 4:", "o": ["\"jdbc:mysql://localhost/prueba\"", "jbdc/localhost", "\"Usuario\"", "\"Password\""], "a": [3], "h": "", "img": "img/1108070_15.jpg"}, {"q": "Rellena el hueco 5:", "o": ["Result", "Statement", "Query", "Command"], "a": [1], "h": "", "img": "img/1108070_15.jpg"}, {"q": "Rellena el hueco 7:", "o": ["Sentencia", "sqlString", "Connect", "Consulta"], "a": [3], "h": "", "img": "img/1108070_15.jpg"}, {"q": "Rellena el hueco 9:", "o": ["getInt", "getString", "getText", "getObject"], "a": [1], "h": "", "img": "img/1108070_15.jpg"}];
+const KEY = 'progb-best';
 const $app = document.getElementById('app');
 const L = 'ABCD';
-const norm = s => s.trim().replace(/[.\s]+$/,'').toLowerCase();
+const norm = s => s.trim().replace(/[.\s]+$/, '').toLowerCase();
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
-// Correct if the chosen text matches a correct option (source repeats some answers with only a trailing dot changed).
+// Correct if the chosen text matches a correct option (some sources repeat an answer with only a trailing dot changed).
 const isRight = (q, i) => q.a.some(a => norm(q.o[a]) === norm(q.o[i]));
-
-// Image opens full size in a new tab (code screenshots can be detailed).
+// Image opens full size in a new tab.
 function fig(q) { const a = el('a', 'fig'); a.href = q.img; a.target = '_blank'; a.rel = 'noopener'; const im = el('img'); im.src = q.img; im.alt = 'Imagen de la pregunta'; im.loading = 'lazy'; a.append(im); return a; }
+const chip = (cls, txt, glass = true) => { const c = el('span', 'chip ' + cls + (glass ? ' glass' : '')); if (cls === 'g' || cls === 'r') c.append(el('i', 'dot')); c.append(txt); return c; };
 
 let S;
 function start(ids) {
-  S = { order: shuffle(ids), pos: 0, res: {} };
-  S.order = S.order.map(id => ({ id, opts: shuffle(DATA[id].o.map((_, i) => i)) }));
+  S = { order: shuffle(ids).map(id => ({ id, opts: shuffle(DATA[id].o.map((_, i) => i)) })), pos: 0, res: {} };
   renderTest();
 }
 
 function renderTest() {
-  $app.replaceChildren();
   if (S.pos >= S.order.length) return renderEnd();
   const { id, opts } = S.order[S.pos], q = DATA[id], done = S.res[id] !== undefined;
-  const ok = Object.values(S.res).filter(Boolean).length, ko = Object.values(S.res).filter(v => !v).length;
+  const vals = Object.values(S.res), ok = vals.filter(Boolean).length, ko = vals.length - ok;
 
-  const meta = el('div', 'meta');
-  meta.innerHTML = `<span>Pregunta <b>${String(S.pos + 1).padStart(2, '0')}</b> / ${S.order.length}</span>`;
-  const sc = el('span', 'score'); sc.innerHTML = `<span class="g">✓ ${ok}</span><span class="r">✗ ${ko}</span>`; meta.append(sc);
+  const status = el('div', 'status');
+  status.append(chip('', `${S.pos + 1} / ${S.order.length}`), el('span', 'sp'), chip('g', String(ok)), chip('r', String(ko)));
+  const bar = el('div', 'bar'); const fill = el('i'); fill.style.width = (vals.length / S.order.length * 100) + '%'; bar.append(fill);
 
-  const track = el('div', 'track'); track.style.setProperty('--n', S.order.length);
-  S.order.forEach((o, i) => { const t = el('i'); if (S.res[o.id] !== undefined) t.className = S.res[o.id] ? 'ok' : 'ko'; else if (i === S.pos) t.className = 'cur'; track.append(t); });
-
-  const card = el('section', 'card'); card.dataset.n = String(id + 1).padStart(2, '0');
-  card.append(el('h2', 'q', q.q));
+  const card = el('section', 'card glass');
+  card.append(el('div', 'qn', 'Pregunta ' + (id + 1)), el('h2', 'q', q.q));
   if (q.img) card.append(fig(q));
   const box = el('div', 'opts'); box.setAttribute('role', 'group');
   opts.forEach((oi, k) => {
@@ -159,24 +206,24 @@ function renderTest() {
     b.onclick = () => answer(oi);
     if (done) {
       b.disabled = true;
-      if (isRight(q, oi)) b.classList.add('ok');
-      else if (oi === S.pick) b.classList.add('ko');
+      if (isRight(q, oi)) { b.classList.add('ok'); b.firstChild.textContent = '✓'; }
+      else if (oi === S.pick) { b.classList.add('ko'); b.firstChild.textContent = '✕'; }
       else b.classList.add('dim');
     }
     box.append(b);
   });
   card.append(box);
-  if (done && q.h) card.append(el('div', 'exp', q.h));
+  if (done && q.h) { const e = el('div', 'exp'); e.append(el('b', '', 'Explicación'), q.h); card.append(e); }
 
-  const nav = el('div', 'nav');
-  nav.append(el('span', 'hint', done ? 'Enter → siguiente' : 'Teclas A–D o 1–4'));
-  const next = el('button', 'btn pri', S.pos + 1 === S.order.length ? 'Ver resultado' : 'Siguiente →');
-  next.hidden = !done; next.onclick = () => { S.pos++; renderTest(); };
-  nav.append(next);
-  card.append(nav);
+  const foot = el('div', 'foot');
+  foot.append(el('span', 'hint', done ? 'Enter → siguiente' : 'Teclas A–D o 1–4'));
+  const next = el('button', 'btn pri', S.pos + 1 === S.order.length ? 'Ver resultado' : 'Siguiente');
+  next.hidden = !done; next.onclick = () => { S.pos++; renderTest(); scrollTo({ top: 0, behavior: 'smooth' }); };
+  foot.append(next);
+  card.append(foot);
 
-  $app.append(meta, track, card);
-  if (done) next.focus();
+  $app.replaceChildren(status, bar, card);
+  if (done) next.focus({ preventScroll: true });
 }
 
 function answer(oi) {
@@ -190,42 +237,51 @@ function answer(oi) {
 function renderEnd() {
   const ids = S.order.map(o => o.id), ok = ids.filter(i => S.res[i]).length, fails = ids.filter(i => !S.res[i]);
   const nota = Math.round(ok / ids.length * 100) / 10;
-  try { const k = 'progb-best', b = +localStorage.getItem(k) || 0; if (ids.length === DATA.length && nota > b) localStorage.setItem(k, nota); } catch (e) {}
-  let best = null; try { best = localStorage.getItem('progb-best'); } catch (e) {}
-  const card = el('section', 'card end');
-  const big = el('div', 'big'); big.innerHTML = `${nota.toLocaleString('es')}<small>/10</small>`;
-  big.style.color = nota >= 5 ? 'var(--ok)' : 'var(--ko)';
-  card.append(big, el('div', 'verdict', `${ok} aciertos · ${fails.length} fallos${best ? ` · mejor nota: ${(+best).toLocaleString('es')}` : ''}`));
+  let best = null;
+  try { best = +localStorage.getItem(KEY) || null; if (ids.length === DATA.length && nota > (best || 0)) localStorage.setItem(KEY, best = nota); } catch (e) {}
+  const color = nota >= 5 ? 'var(--ok)' : 'var(--ko)';
+  const card = el('section', 'card glass end');
+  const ring = el('div', 'ring'); const C = 2 * Math.PI * 86;
+  ring.innerHTML = `<svg viewBox="0 0 200 200"><circle class="t" cx="100" cy="100" r="86"/><circle class="v" cx="100" cy="100" r="86" stroke-dasharray="${C}" stroke-dashoffset="${C}" style="stroke:${color};color:${color}"/></svg>`;
+  const n = el('div', 'n', nota.toLocaleString('es')); n.append(el('small', '', 'sobre 10')); ring.append(n);
+  requestAnimationFrame(() => requestAnimationFrame(() => ring.querySelector('.v').style.strokeDashoffset = C * (1 - nota / 10)));
+  const verdict = nota >= 9 ? 'Sobresaliente' : nota >= 7 ? 'Muy bien' : nota >= 5 ? 'Aprobado' : 'Sigue practicando';
+  card.append(ring, el('div', 'verdict', verdict), el('div', 'sub', `${ok} aciertos · ${fails.length} fallos${best ? ` · mejor nota ${best.toLocaleString('es')}` : ''}`));
   const row = el('div', 'row');
   if (fails.length) { const f = el('button', 'btn pri', `Repetir falladas (${fails.length})`); f.onclick = () => start(fails); row.append(f); }
-  const r = el('button', 'btn', 'Test completo de nuevo'); r.onclick = () => start(DATA.map((_, i) => i)); row.append(r);
+  const r = el('button', 'btn sec', 'Test completo'); r.onclick = () => start(DATA.map((_, i) => i)); row.append(r);
   card.append(row);
   if (fails.length) {
-    const ul = el('ul', 'fails');
-    fails.forEach(i => { const li = el('li', '', DATA[i].q); li.append(el('span', '', '✓ ' + DATA[i].a.map(a => DATA[i].o[a]).join(' / '))); ul.append(li); });
+    const ul = el('ul', 'list glass'); ul.append(el('h4', '', 'Repasa estas'));
+    fails.forEach(i => { const li = el('li', '', DATA[i].q); li.append(el('span', '', DATA[i].a.map(a => DATA[i].o[a]).join(' / '))); ul.append(li); });
     card.append(ul);
   }
   $app.replaceChildren(card);
 }
 
 function renderReview() {
-  const input = el('input', 'filter'); input.type = 'search'; input.placeholder = 'Buscar pregunta o respuesta…'; input.setAttribute('aria-label', 'Buscar');
-  const list = el('div', 'rev');
+  const s = el('label', 'search glass');
+  s.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+  const input = el('input'); input.type = 'search'; input.placeholder = 'Buscar pregunta o respuesta'; input.setAttribute('aria-label', 'Buscar');
+  s.append(input);
+  const list = el('div', 'rev'), empty = el('div', 'empty', 'Sin resultados'); empty.hidden = true;
   const items = DATA.map((q, i) => {
-    const a = el('article');
-    const h = el('h3'); h.append(el('b', '', String(i + 1).padStart(2, '0')), q.q); a.append(h);
+    const a = el('article', 'glass');
+    const h = el('h3'); h.append(el('b', '', String(i + 1)), q.q); a.append(h);
     if (q.img) a.append(fig(q));
     const ul = el('ul'); q.o.forEach((o, j) => ul.append(el('li', q.a.includes(j) ? 'c' : '', o))); a.append(ul);
     if (q.h) a.append(el('p', '', q.h));
     list.append(a);
     return [a, (q.q + ' ' + q.o.join(' ') + ' ' + q.h).toLowerCase()];
   });
-  input.oninput = () => { const t = input.value.toLowerCase(); items.forEach(([a, s]) => a.hidden = !s.includes(t)); };
-  $app.replaceChildren(input, list);
+  input.oninput = () => { const t = input.value.toLowerCase(); let n = 0; items.forEach(([a, s]) => { a.hidden = !s.includes(t); n += !a.hidden; }); empty.hidden = n > 0; };
+  $app.replaceChildren(s, list, empty);
 }
 
-document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
-  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+const seg = document.querySelector('.seg');
+seg.querySelectorAll('button').forEach((b, i) => b.onclick = () => {
+  seg.dataset.i = i;
+  seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', x === b));
   b.dataset.mode === 'test' ? renderTest() : renderReview();
 });
 

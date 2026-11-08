@@ -1,0 +1,21 @@
+{
+ "name": "Programación B",
+ "short_name": "Programación B",
+ "start_url": "./",
+ "display": "standalone",
+ "background_color": "#C3306B",
+ "theme_color": "#EF6A9A",
+ "icons": [
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  },
+  {
+   "src": "icon.svg",
+   "sizes": "any",
+   "type": "image/svg+xml"
+  }
+ ]
+}
